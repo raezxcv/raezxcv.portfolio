@@ -65,9 +65,9 @@ export default function Footer() {
     <footer className="footer" aria-label="Site footer">
       <div className="heroGrainientBg" aria-hidden="true">
         <Grainient
-          color1="#1c1c1d"
-          color2="#101011"
-          color3="#2a2a2c"
+          color1="#3A3A3A"
+          color2="#6B6B6B"
+          color3="#1A1A1A"
           timeSpeed={1.25}
           colorBalance={0.0}
           warpStrength={1.0}
@@ -83,7 +83,7 @@ export default function Footer() {
           grainAnimated={false}
           contrast={1.5}
           gamma={1.0}
-          saturation={0.35}
+          saturation={1.0}
           centerX={0.0}
           centerY={0.0}
           zoom={0.9}
@@ -143,7 +143,7 @@ export default function Footer() {
       </div>
 
       <div className="footerRobotWrap" aria-hidden="true">
-        <span className="footerRobotName">RAELY</span>
+        <span className="footerRobotName">RAELY IVAN REYES</span>
         <SplineRobot />
       </div>
     </footer>

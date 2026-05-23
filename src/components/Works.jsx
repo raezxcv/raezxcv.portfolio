@@ -16,7 +16,7 @@ function ProjectCard({ project, index }) {
       className={`worksProjectCard tone-${project.tone || "dark"}`}
       style={{
         "--project-bg": project.accent,
-        "--card-rotation": CARD_ROTATIONS[index % CARD_ROTATIONS.length],
+        "--card-rotation": project.tilt ?? CARD_ROTATIONS[index % CARD_ROTATIONS.length],
         "--mockup-rotation": "0deg",
       }}
     >
@@ -91,6 +91,13 @@ export default function Works() {
   const stageRef = useRef(null);
   const trackRef = useRef(null);
   const [maxShift, setMaxShift] = useState(0);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+  const touchStartScroll = useRef(0);
+  const isHSwipe = useRef(false);
+  const mouseStartX = useRef(0);
+  const mouseStartScroll = useRef(0);
+  const isDragging = useRef(false);
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: stageRef,
@@ -122,6 +129,91 @@ export default function Works() {
       window.removeEventListener("resize", measure);
     };
   }, []);
+
+  // Touch-swipe → scroll bridge
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const onTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+      touchStartScroll.current = window.scrollY;
+      isHSwipe.current = false;
+    };
+
+    const onTouchMove = (e) => {
+      const dx = e.touches[0].clientX - touchStartX.current;
+      const dy = e.touches[0].clientY - touchStartY.current;
+
+      // Determine swipe axis once we have enough movement
+      if (!isHSwipe.current && Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+      if (!isHSwipe.current) {
+        isHSwipe.current = Math.abs(dx) > Math.abs(dy);
+      }
+
+      if (isHSwipe.current && maxShift > 0) {
+        e.preventDefault(); // block vertical scroll while swiping cards
+        // Map horizontal drag to the equivalent vertical scroll position
+        const stageScrollRange = stage.scrollHeight - window.innerHeight;
+        const ratio = stageScrollRange / maxShift;
+        window.scrollTo({ top: touchStartScroll.current - dx * ratio, behavior: "instant" });
+      }
+    };
+
+    stage.addEventListener("touchstart", onTouchStart, { passive: true });
+    stage.addEventListener("touchmove", onTouchMove, { passive: false });
+
+    return () => {
+      stage.removeEventListener("touchstart", onTouchStart);
+      stage.removeEventListener("touchmove", onTouchMove);
+    };
+  }, [maxShift]);
+
+  // Mouse click-drag → scroll bridge
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const onMouseDown = (e) => {
+      if (e.button !== 0) return;
+      // Only activate drag when actually scrolled into the works zone
+      const prog = scrollYProgress.get();
+      if (prog <= 0 || prog >= 1) return;
+
+      mouseStartX.current = e.clientX;
+      mouseStartScroll.current = window.scrollY;
+      isDragging.current = false;
+      stage.dataset.dragging = "false";
+
+      const onMouseMove = (mv) => {
+        const dx = mv.clientX - mouseStartX.current;
+        if (!isDragging.current && Math.abs(dx) < 5) return;
+        if (!isDragging.current) {
+          isDragging.current = true;
+          stage.dataset.dragging = "true";
+        }
+        if (maxShift > 0) {
+          const stageScrollRange = stage.scrollHeight - window.innerHeight;
+          const ratio = stageScrollRange / maxShift;
+          window.scrollTo({ top: mouseStartScroll.current - dx * ratio, behavior: "instant" });
+        }
+      };
+
+      const onMouseUp = () => {
+        isDragging.current = false;
+        stage.dataset.dragging = "false";
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+      };
+
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    };
+
+    stage.addEventListener("mousedown", onMouseDown);
+    return () => stage.removeEventListener("mousedown", onMouseDown);
+  }, [maxShift, scrollYProgress]);
 
   return (
     <section

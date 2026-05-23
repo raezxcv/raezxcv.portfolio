@@ -5,31 +5,31 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-mot
 const MILESTONES = [
   {
     id: 1,
-    title: "Pampanga State University",
-    subtitle: "Bachelor of Science in Information Technology",
-    description: "Focused on software engineering, web development, and system architecture while engaging in hands-on projects and collaborative learning.",
-    date: "2022 – Present",
+    title: "NOLA Web Solutions",
+    subtitle: "Full-Stack Developer / UI UX Intern",
+    description: "Built a one-way SMS platform SaaS inside GoHighLevel, enabling Philippine businesses to automate marketing campaigns and customer promotions.",
+    date: "2026 – Present",
   },
   {
     id: 2,
-    title: "Bureau of Information Technology Specialists",
-    subtitle: "Graphic Designer",
-    description: "Created social media posts, announcements, and event graphics supporting internal and external communications while maintaining visual brand consistency.",
-    date: "2024 – 2025",
-  },
-  {
-    id: 3,
     title: "SafeHito Capstone Project",
     subtitle: "Mobile App Developer",
     description: "Developed a mobile application integrated with an AI-based scanning system using Raspberry Pi to detect fungal infections in African catfish with real-time water quality monitoring.",
     date: "2025",
   },
   {
+    id: 3,
+    title: "Bureau of Information Technology Specialists",
+    subtitle: "Graphic Designer",
+    description: "Created social media posts, announcements, and event graphics supporting internal and external communications while maintaining visual brand consistency.",
+    date: "2024 – 2025",
+  },
+  {
     id: 4,
-    title: "NOLA Web Solutions",
-    subtitle: "Frontend Developer / UI UX Intern",
-    description: "Built a one-way SMS platform SaaS inside GoHighLevel, enabling Philippine businesses to automate marketing campaigns and customer promotions.",
-    date: "2026 – Present",
+    title: "Pampanga State University",
+    subtitle: "Bachelor of Science in Information Technology",
+    description: "Focused on software engineering, web development, and system architecture while engaging in hands-on projects and collaborative learning.",
+    date: "2022 – Present",
   },
 ];
 
@@ -92,7 +92,7 @@ export default function Experience() {
     target: sectionRef,
     offset: ["end end", "end center"],
   });
-  
+
   const [isLight, setIsLight] = useState(false);
 
   useMotionValueEvent(trackScrollY, "change", (latest) => {
@@ -105,19 +105,19 @@ export default function Experience() {
   });
 
   const scaleY = useTransform(trackScrollY, [0, 1], [0, 1]);
-  
+
   // Curve depth decreases as the section scrolls up
   // A 200vw width element with 75vw vertical radius creates exactly a 10vw drop in the center of the viewport without vertical edges.
   const curveDepth = useTransform(sectionScrollY, [0, 1], ["50vw", "0vw"]);
   const curveRadius = useTransform(curveDepth, v => `50% ${v}`);
 
   return (
-    <motion.section 
-      id="experience" 
+    <motion.section
+      id="experience"
       ref={sectionRef}
       className={`expTrailSection ${isLight ? "expTrail--light" : ""}`}
     >
-      <motion.div 
+      <motion.div
         className="expTrail-curveBg"
         style={{
           borderBottomLeftRadius: curveRadius,
