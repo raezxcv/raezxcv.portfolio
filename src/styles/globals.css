@@ -2930,7 +2930,8 @@ html[data-theme="light"] .heroRoleSep {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-content: start;
   border-radius: 26px;
   background:
     radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.28), transparent 28%),
@@ -3026,7 +3027,7 @@ html[data-theme="light"] .heroRoleSep {
 .worksProjectBody {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.8fr);
-  align-items: end;
+  align-items: start;
   gap: clamp(1rem, 3vw, 2.5rem);
   padding: clamp(1.5rem, 3.2vw, 2.7rem);
   position: relative;
@@ -4700,7 +4701,8 @@ body {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-content: start;
   gap: 0;
   padding: 0;
   border-radius: 28px;
@@ -5111,7 +5113,7 @@ body {
   pointer-events: none;
   min-height: clamp(17rem, 38vh, 30rem);
   height: clamp(17rem, 38vh, 30rem);
-  margin: clamp(1.15rem, 2vw, 1.8rem) clamp(0.9rem, 3vw, 3.25rem) clamp(2.2rem, 4vh, 3.2rem);
+  margin: clamp(1.15rem, 2vw, 1.8rem) clamp(0.9rem, 3vw, 3.25rem) clamp(0.85rem, 1.8vh, 1.35rem);
   padding: 0;
   border: 0;
   border-radius: clamp(10px, 1vw, 14px);
@@ -5151,7 +5153,7 @@ body {
 .worksProjectBody {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.8fr);
-  align-items: end;
+  align-items: start;
   gap: clamp(1rem, 3vw, 2.5rem);
   padding: 0 clamp(1.5rem, 3.2vw, 2.7rem) clamp(1.5rem, 3.2vw, 2.7rem);
   border-top: 0;
