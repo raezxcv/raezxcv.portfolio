@@ -5060,7 +5060,8 @@ body {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: minmax(0, 75%) minmax(0, 25%);
+  align-content: stretch;
   gap: 0;
   padding: 0;
   border: 0;
@@ -5111,9 +5112,10 @@ body {
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  min-height: clamp(17rem, 38vh, 30rem);
-  height: clamp(17rem, 38vh, 30rem);
-  margin: clamp(1.15rem, 2vw, 1.8rem) clamp(0.9rem, 3vw, 3.25rem) clamp(0.85rem, 1.8vh, 1.35rem);
+  min-height: 0;
+  height: auto;
+  align-self: stretch;
+  margin: clamp(1.15rem, 2vw, 1.8rem) clamp(0.9rem, 3vw, 3.25rem) clamp(0.45rem, 1vh, 0.8rem);
   padding: 0;
   border: 0;
   border-radius: clamp(10px, 1vw, 14px);
@@ -5153,9 +5155,10 @@ body {
 .worksProjectBody {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.8fr);
-  align-items: start;
+  align-items: end;
+  align-self: stretch;
   gap: clamp(1rem, 3vw, 2.5rem);
-  padding: 0 clamp(1.5rem, 3.2vw, 2.7rem) clamp(1.5rem, 3.2vw, 2.7rem);
+  padding: clamp(0.35rem, 0.8vh, 0.75rem) clamp(1.5rem, 3.2vw, 2.7rem) clamp(1.3rem, 2.6vw, 2.25rem);
   border-top: 0;
   background: transparent;
   backdrop-filter: none;
@@ -5189,6 +5192,14 @@ body {
 
 .worksProjectDetails {
   display: flex;
+  justify-self: end;
+  align-self: end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.worksProjectDetails .workTags {
+  justify-content: flex-end;
 }
 
 .worksProjectRole {
@@ -5229,6 +5240,7 @@ body {
     flex: none;
     min-height: auto;
     height: auto;
+    grid-template-rows: auto auto;
     transform: none;
     border-radius: 22px;
   }

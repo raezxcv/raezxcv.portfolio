@@ -25,7 +25,7 @@ export const PROJECTS = [
     id: 1,
     title: "NOLA SMS Pro",
     summary: "Full-scale multi-role SMS platform built for CRM integration and enterprise messaging workflows.",
-    role: "UI/UX - Frontend (all roles) - Architecture - API Integration",
+    role: "UI/UX - Frontend - Backend - System Architecture - API Integration",
     tech: ["React", "Tailwind", "REST APIs", "Cloud Run"],
     live: "#",
     github: "#",
