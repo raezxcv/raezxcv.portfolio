@@ -124,6 +124,7 @@ export default function Navbar({ activeSection, theme }) {
   }));
 
   const socialItems = [
+    { label: 'Email', link: `mailto:${SITE_META.email}` },
     { label: 'GitHub', link: SITE_META.github },
     { label: 'LinkedIn', link: SITE_META.linkedin }
   ];

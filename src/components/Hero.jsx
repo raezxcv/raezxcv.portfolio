@@ -79,11 +79,13 @@ export default function Hero() {
               </div>
 
               <motion.h1 className="heroNameLine" {...up(0.12)}>
-                Raely Ivan Reyes
+                <span className="heroNameWord">Raely</span>
+                <span className="heroNameWord">Ivan</span>
+                <span className="heroNameWord">Reyes</span>
               </motion.h1>
 
               <motion.div className="heroNameBottomRoles" {...up(0.20)}>
-                <span>Frontend Developer</span>
+                <span>Full Stack Developer</span>
                 <span>UI/UX Designer</span>
                 <span>Graphic Designer</span>
                 <span>Mobile App Developer</span>

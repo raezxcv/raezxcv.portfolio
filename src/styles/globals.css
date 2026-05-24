@@ -978,6 +978,15 @@ img {
   width: 100%;
 }
 
+/* Desktop: words inline (space between) */
+.heroNameWord {
+  display: inline;
+}
+
+.heroNameWord+.heroNameWord::before {
+  content: " ";
+}
+
 .heroNameTopBar {
   display: flex;
   justify-content: space-between;
@@ -2839,13 +2848,14 @@ html[data-theme="light"] .heroRoleSep {
 
 .contactBentoInput:focus,
 .contactBentoTextarea:focus {
-  border-color: var(--accent-mid);
+  border-color: var(--border);
   background: rgba(255, 255, 255, 0.07);
+  outline: none;
 }
 
 .contactBentoInput.error,
 .contactBentoTextarea.error {
-  border-color: var(--accent-bright);
+  border-color: var(--border);
 }
 
 .contactBentoTextarea {
@@ -2876,6 +2886,7 @@ html[data-theme="light"] .heroRoleSep {
 .contactBentoFormBottom {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -2889,7 +2900,7 @@ html[data-theme="light"] .heroRoleSep {
   border: none;
   border-radius: 6px;
   padding: 10px 22px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -5172,7 +5183,7 @@ body {
 
 @media (max-width: 819px) {
   .aboutSection {
-    min-height: auto;
+    min-height: 100svh;
     padding: 5rem var(--gutter);
   }
 
@@ -5180,7 +5191,11 @@ body {
     gap: 2rem;
   }
 
-  .aboutBodyPara,
+  .aboutBodyPara {
+    font-size: 1.15rem;
+    line-height: 1.5;
+  }
+
   .aboutBodyPara:first-child {
     font-size: 1.45rem;
     line-height: 1.45;
@@ -5516,27 +5531,29 @@ body {
   .hero {
     height: auto;
     min-height: 100svh;
-    padding: calc(var(--nav-h) + 1.1rem) clamp(1.1rem, 5vw, 1.5rem) 2rem;
-    justify-content: center;
+    padding: calc(var(--nav-h) + 1.1rem) clamp(1.2rem, 5vw, 1.8rem) 2.5rem;
+    justify-content: flex-start;
   }
 
   .heroInner,
   .heroStackedWrap {
     width: 100%;
+    height: 100%;
   }
 
   .heroStackedWrap {
     align-items: stretch;
-    text-align: left;
+    text-align: justify;
   }
 
   .heroCenterStack {
-    min-height: calc(100svh - 8rem);
-    justify-content: center;
+    min-height: calc(100svh - var(--nav-h) - 3rem);
+    justify-content: space-between;
     align-items: center;
-    gap: clamp(1rem, 3.6vh, 1.8rem);
+    gap: 0;
     margin: 0;
-    padding-top: 1.25rem;
+    padding-top: 0;
+    flex-direction: column;
   }
 
   .heroNameWrapper {
@@ -5547,56 +5564,60 @@ body {
     transform: none;
     z-index: 2;
     align-items: flex-start;
-    gap: 0.35rem;
+    gap: 0;
+    flex: 1;
+    justify-content: center;
   }
 
   .heroNameTopBar {
     display: block;
     width: 100%;
     padding: 0;
-    margin-bottom: 0;
+    margin-bottom: clamp(0.5rem, 2vh, 1rem);
   }
 
   .heroNameTopLeft {
     text-align: left;
-    font-size: clamp(0.68rem, 2.7vw, 0.8rem);
+    font-size: clamp(0.68rem, 3vw, 0.85rem);
+    letter-spacing: 0.14em;
   }
 
   .heroNameTopRight {
     display: none;
   }
 
+  /* Split each word onto its own line — handled via word-break */
   .heroNameLine {
     width: 100%;
     max-width: none;
-    text-align: left;
-    font-size: clamp(2.55rem, 13.4vw, 4.2rem);
-    line-height: 0.84;
-    transform: scaleX(1.02);
+    text-align: justify;
+    text-align-last: justify;
+    font-size: clamp(10rem, 38vw, 16rem);
+    line-height: 0.75;
+    transform: none;
     transform-origin: left center;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-word;
+    /* Force each word on its own line */
+    display: block;
   }
 
   .heroNameBottomRoles {
     display: none;
   }
 
-  .heroImageBlock {
+  /* Each word on its own line */
+  .heroNameWord {
     display: block;
-    width: min(72vw, 20rem);
-    top: auto;
-    margin: 0 auto;
   }
 
-  .heroImgFrame {
-    mask-image: none;
-    -webkit-mask-image: none;
+  .heroNameWord+.heroNameWord::before {
+    content: none;
   }
 
-  .heroImg {
-    max-height: min(42svh, 22rem);
-    object-fit: contain;
-    object-position: top center;
+  /* Hide the image on mobile */
+  .heroImageBlock {
+    display: none !important;
   }
 
   .heroCtas {
@@ -5606,17 +5627,18 @@ body {
     transform: none !important;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    gap: 0.75rem;
     width: 100%;
-    margin-top: 0;
+    margin-top: clamp(1rem, 3vh, 2rem);
+    padding-bottom: 4rem;
   }
 
   .btn {
     width: 100%;
-    min-height: 3.6rem;
+    min-height: 2.8rem;
     flex: none;
     justify-content: center;
-    padding: 0.9rem 1rem;
+    padding: 0.6rem 1rem;
   }
 
   .heroScroll {

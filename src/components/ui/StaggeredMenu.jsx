@@ -360,10 +360,10 @@ export const StaggeredMenu = ({
         }
         style={{
           ...(accentColor ? { ['--sm-accent']: accentColor } : {}),
-          ['--sm-panel-bg']: theme === 'light' ? 'rgba(247, 246, 243, 0.96)' : 'rgba(6, 6, 8, 0.96)',
-          ['--sm-panel-text']: theme === 'light' ? '#111111' : '#f7f6f3',
-          ['--sm-panel-muted']: theme === 'light' ? '#3f3f46' : '#b7b7b7',
-          ['--sm-panel-border']: theme === 'light' ? 'rgba(17, 17, 17, 0.12)' : 'rgba(255, 255, 255, 0.12)'
+          ['--sm-panel-bg']: '#ffffff',
+          ['--sm-panel-text']: '#111111',
+          ['--sm-panel-muted']: '#3f3f46',
+          ['--sm-panel-border']: 'rgba(17, 17, 17, 0.12)'
         }}
         data-position={position}
         data-menu-theme={theme}
@@ -410,10 +410,20 @@ export const StaggeredMenu = ({
                 draggable={false}
                 width={110}
                 height={24}
+                style={{ cursor: 'pointer' }}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               />
             )}
             {!logoUrl && (
-              <span className="brandMark" style={{ fontSize: '1.6rem', color: logoColor, fontWeight: 'bold', transition: 'color 0.3s ease' }}>r.</span>
+              <span
+                className="brandMark"
+                style={{ fontSize: '1.6rem', color: logoColor, fontWeight: 'bold', transition: 'color 0.3s ease', cursor: 'pointer' }}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                role="button"
+                tabIndex={0}
+                aria-label="Go to home"
+                onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >r.</span>
             )}
           </div>
 
@@ -565,6 +575,7 @@ export const StaggeredMenu = ({
 .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { counter-increment: smItem; content: counter(smItem, decimal-leading-zero); position: absolute; top: 0.1em; right: 2.2em; font-size: 18px; font-weight: 400; color: var(--sm-accent, #ff0000); letter-spacing: 0; pointer-events: none; user-select: none; opacity: var(--sm-num-opacity, 0); }
 @media (max-width: 1024px) { .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
 @media (max-width: 640px) { .sm-scope .staggered-menu-header { padding: 0.85rem 1rem; } .sm-scope .sm-toggle { width: 52px; height: 52px; } .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; } .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); } }
+.sm-scope .staggered-menu-panel, .sm-scope .staggered-menu-panel * { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='%2317161a' d='M7 0h2v7h7v2H9v7H7V9H0V7h7z'/></svg>") 8 8, crosshair; }
       `}</style>
     </div>
   );

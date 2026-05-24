@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import resumeFile from "../assets/Raely_Ivan_Reyes_Resume.pdf";
 
 const aboutParagraphs = [
-  "I'm Raely – an aspiring Software Engineer crafting clean, intuitive, and visually engaging digital experiences.",
+  "I'm Raely – a Full Stack Developer crafting clean, intuitive, and visually engaging digital experiences.",
   "I specialize in building responsive web applications, system designs, and scalable digital products using technologies like React.js, Rest APIs, and Tailwind CSS.",
 ];
 
