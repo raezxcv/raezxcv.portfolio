@@ -153,16 +153,7 @@ export default function Contact() {
       label: "",
       custom: (
         <div className="contactBentoHeroCard">
-          <div className="contactBentoStatusCluster">
-            <div className="contactBentoAvail" style={{ margin: 0 }}>
-              <span className="contactBentoAvailDot" />
-              <span>Available for new projects</span>
-            </div>
-            <div className="contactBentoLocation">
-              <MapPin size={11} />
-              <span>{SITE_META.location}</span>
-            </div>
-          </div>
+
 
           {/* Text — top-left */}
           <div className="contactBentoIntro">

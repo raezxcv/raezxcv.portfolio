@@ -90,6 +90,7 @@ export default function Footer() {
         />
       </div>
 
+
       <div className="footerLinkBoard">
         <div className="footerColumns" aria-label="Footer links">
           <div className="footerColumn">
@@ -144,6 +145,7 @@ export default function Footer() {
 
       <div className="footerRobotWrap" aria-hidden="true">
         <span className="footerRobotName">RAELY IVAN REYES</span>
+
         <SplineRobot />
       </div>
     </footer>

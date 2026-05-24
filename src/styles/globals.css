@@ -126,8 +126,8 @@ body.menu-is-open #root>div>div>main {
 }
 
 ::selection {
-  background: var(--accent-mid);
-  color: #fff;
+  background: #1a1a1a;
+  color: #ffffff;
 }
 
 a {
@@ -186,12 +186,12 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent);
+  background: #555555;
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-mid);
+  background: #888888;
 }
 
 /* ─── Focus ───────────────────────────────────────────────────── */
@@ -2770,10 +2770,10 @@ html[data-theme="light"] .heroRoleSep {
 }
 
 .contactBentoLinkValue {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.58rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
   color: var(--muted);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   margin-top: 2px;
 }
 
@@ -2964,7 +2964,7 @@ html[data-theme="light"] .heroRoleSep {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
   margin-bottom: clamp(1.25rem, 3.5vh, 3rem);
   width: 100%;
   padding-inline: var(--gutter);
@@ -4517,6 +4517,7 @@ html[data-theme="light"] .heroRoleSep {
 .expTrail-headerWrapper {
   padding: 20vh var(--gutter) 0;
 }
+
 /* ── Body (milestone stack + scroll line container) ── */
 .expTrail-body {
   position: relative;
@@ -5064,7 +5065,7 @@ body {
 
 .footerRobotName {
   position: absolute;
-  top: -16rem;
+  top: -15rem;
   left: 50%;
   transform: translateX(-50%) scaleX(1.15);
   transform-origin: center;
@@ -5084,7 +5085,10 @@ body {
   width: 100vw;
 }
 
+
 .footerRobot {
+  position: relative;
+  z-index: 1;
   height: clamp(18rem, 38vw, 34rem);
   margin-top: -8rem;
   -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
@@ -5320,7 +5324,7 @@ body {
   }
 
   .contactBentoTitle {
-    font-size: 4.4rem;
+    font-size: 5.6rem;
   }
 
   .contactBentoGlobe {
@@ -5368,24 +5372,30 @@ body {
   }
 
   .footerRobotWrap {
-    margin-top: 3rem;
+    margin-top: 4.5rem;
+  }
+
+  .footerTextLink,
+  .footerStaticText {
+    font-size: 0.88rem;
   }
 
   .footerRobotName {
-    position: static;
-    display: block;
-    text-align: center;
-    font-size: clamp(3rem, 10vw, 6rem);
+    position: absolute;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%) scaleX(1.1);
+    transform-origin: center;
+    font-size: clamp(3.5rem, 18vw, 8rem);
     color: var(--text);
     opacity: 0.12;
-    transform: none;
-    white-space: normal;
-    word-break: break-word;
+    white-space: nowrap;
+    z-index: 0;
   }
 
   .footerRobot {
     display: block;
-    height: 22rem;
+    height: 26rem;
     margin-top: 1.5rem;
     position: relative;
     overflow: hidden;
@@ -5395,12 +5405,13 @@ body {
 
   .footerRobot spline-viewer {
     width: 160%;
-    height: 100%;
+    height: 38rem;
     display: block;
     position: absolute;
     left: 50%;
-    top: 0;
-    transform: translateX(-50%);
+    bottom: 0;
+    transform: translateX(-50%) scale(0.62);
+    transform-origin: bottom center;
   }
 }
 
@@ -5461,7 +5472,7 @@ body {
   }
 
   .contactBentoTitle {
-    font-size: 3.7rem;
+    font-size: 4.8rem;
   }
 
   .footerColumns {
@@ -6075,5 +6086,24 @@ body {
 
   .worksProjectTitle {
     font-size: clamp(3rem, 13.5vw, 4.6rem);
+  }
+
+  .worksProjectDetails {
+    align-items: flex-start !important;
+    text-align: left !important;
+    justify-self: start !important;
+    align-self: start !important;
+    width: 100% !important;
+  }
+
+  .worksProjectDetails .workTags {
+    justify-content: flex-start !important;
+  }
+}
+
+/* ── Hide hero image when zoomed >~110% on desktop ────────────── */
+@media (min-width: 820px) and (max-width: 1280px) {
+  .heroImageBlock {
+    display: none;
   }
 }
