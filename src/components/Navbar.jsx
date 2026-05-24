@@ -154,7 +154,7 @@ export default function Navbar({ activeSection, theme }) {
           position: 'fixed',
           left: 0,
           width: '100vw',
-          height: '100vh',
+          height: '100dvh',
           zIndex: 999,
           pointerEvents: 'none'
         }}

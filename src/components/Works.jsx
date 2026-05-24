@@ -7,6 +7,18 @@ const CARD_ROTATIONS = ["-5deg", "5deg", "-4deg"];
 const MotionH2 = motion.h2;
 const MotionDiv = motion.div;
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 819px)');
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener('change', update);
+    return () => mediaQuery.removeEventListener('change', update);
+  }, []);
+  return isMobile;
+}
+
 function ProjectCard({ project, index }) {
   const hasLinks =
     (project.live && project.live !== "#") || (project.github && project.github !== "#");
@@ -98,6 +110,7 @@ export default function Works() {
   const mouseStartX = useRef(0);
   const mouseStartScroll = useRef(0);
   const isDragging = useRef(false);
+  const isMobile = useIsMobile();
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: stageRef,
@@ -133,7 +146,7 @@ export default function Works() {
   // Touch-swipe → scroll bridge
   useEffect(() => {
     const stage = stageRef.current;
-    if (!stage) return;
+    if (!stage || isMobile) return;
 
     const onTouchStart = (e) => {
       touchStartX.current = e.touches[0].clientX;
@@ -173,7 +186,7 @@ export default function Works() {
   // Mouse click-drag → scroll bridge
   useEffect(() => {
     const stage = stageRef.current;
-    if (!stage) return;
+    if (!stage || isMobile) return;
 
     const onMouseDown = (e) => {
       if (e.button !== 0) return;
@@ -257,7 +270,7 @@ export default function Works() {
             <MotionDiv
               ref={trackRef}
               className="worksCarouselTrack"
-              style={prefersReducedMotion ? undefined : { x }}
+              style={prefersReducedMotion || isMobile ? undefined : { x }}
             >
               {PROJECTS.map((project, index) => (
                 <ProjectCard key={project.id} project={project} index={index} />

@@ -5201,6 +5201,39 @@ body {
     line-height: 1.45;
   }
 
+  .worksCarouselStage {
+    min-height: auto !important;
+  }
+
+  .worksPinned {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .worksSectionTitle {
+    font-size: 5.2rem;
+    line-height: 0.85;
+  }
+
+  .worksMetaTags {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    gap: 0.2rem;
+  }
+
+  .worksMetaTags span {
+    font-size: 0.6rem;
+    padding: 0.25rem 0.4rem;
+    white-space: nowrap;
+    text-align: center;
+    flex: 1;
+  }
+
   .worksCarouselViewport {
     display: block;
     overflow: visible;
@@ -5229,8 +5262,24 @@ body {
   }
 
   .worksProjectBody {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     padding: 1rem 0 0;
+  }
+
+  .worksProjectDetails {
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  .worksProjectRole {
+    display: none;
+  }
+
+  .worksProjectDetails .workTags {
+    justify-content: flex-start;
   }
 
   .worksProjectTitle {
