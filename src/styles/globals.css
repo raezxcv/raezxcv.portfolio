@@ -1044,10 +1044,17 @@ img {
   margin-top: -2.5vw;
 }
 
-/* Re-allow wrapping on small screens */
+/* Re-allow wrapping on small screens and center */
 @media (max-width: 819px) {
   .heroNameLine {
     white-space: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroNameWord+.heroNameWord::before {
+    content: none;
   }
 }
 
@@ -5382,7 +5389,7 @@ body {
 
   .footerRobotName {
     position: absolute;
-    top: 5rem;
+    top: 1.5rem;
     left: 50%;
     transform: translateX(-50%) scaleX(1.1);
     transform-origin: center;
@@ -5664,9 +5671,10 @@ body {
   }
 
   .heroNameTopLeft {
-    text-align: left;
-    font-size: clamp(0.68rem, 3vw, 0.85rem);
+    text-align: center;
+    font-size: clamp(0.85rem, 3vw, 0.88rem);
     letter-spacing: 0.14em;
+    padding-bottom: 10px;
   }
 
   .heroNameTopRight {
@@ -5677,8 +5685,8 @@ body {
   .heroNameLine {
     width: 100%;
     max-width: none;
-    text-align: justify;
-    text-align-last: justify;
+    text-align: center;
+    text-align-last: center;
     font-size: clamp(10rem, 38vw, 16rem);
     line-height: 0.75;
     transform: none;

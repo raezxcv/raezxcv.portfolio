@@ -13,19 +13,19 @@ function scrollTo(id) {
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-const up = (delay = 0) => ({
+const up = (delay = 0, isLoaded = false) => ({
   initial: { opacity: 0, y: 22 },
-  animate: { opacity: 1, y: 0 },
+  animate: isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 },
   transition: { duration: 0.78, delay, ease: [0.22, 1, 0.36, 1] },
 });
 
-const centerUp = (delay = 0) => ({
+const centerUp = (delay = 0, isLoaded = false) => ({
   initial: { opacity: 0, y: "calc(-50% + 22px)", x: "-50%" },
-  animate: { opacity: 1, y: "-50%", x: "-50%" },
+  animate: isLoaded ? { opacity: 1, y: "-50%", x: "-50%" } : { opacity: 0, y: "calc(-50% + 22px)", x: "-50%" },
   transition: { duration: 0.78, delay, ease: [0.22, 1, 0.36, 1] },
 });
 
-export default function Hero() {
+export default function Hero({ isLoaded = true }) {
   return (
     <header id="home" className="hero">
       {/* Animated gradient background */}
@@ -61,10 +61,10 @@ export default function Hero() {
           <div className="heroCenterStack">
             <div className="heroNameWrapper">
               <div className="heroNameTopBar">
-                <motion.p className="heroNameTopLeft" {...up(0.05)}>
+                <motion.p className="heroNameTopLeft" {...up(0.05, isLoaded)}>
                   HEY, HELLO, I AM
                 </motion.p>
-                <motion.div className="heroNameTopRight" {...up(0.05)}>
+                <motion.div className="heroNameTopRight" {...up(0.05, isLoaded)}>
                   {NAV_LINKS.map(id => (
                     <button
                       key={id}
@@ -78,13 +78,13 @@ export default function Hero() {
                 </motion.div>
               </div>
 
-              <motion.h1 className="heroNameLine" {...up(0.12)}>
+              <motion.h1 className="heroNameLine" {...up(0.12, isLoaded)}>
                 <span className="heroNameWord">Raely</span>
                 <span className="heroNameWord">Ivan</span>
                 <span className="heroNameWord">Reyes</span>
               </motion.h1>
 
-              <motion.div className="heroNameBottomRoles" {...up(0.20)}>
+              <motion.div className="heroNameBottomRoles" {...up(0.20, isLoaded)}>
                 <span>Full Stack Developer</span>
                 <span>UI/UX Designer</span>
                 <span>Graphic Designer</span>
@@ -95,7 +95,7 @@ export default function Hero() {
             <motion.div
               className="heroImageBlock"
               initial={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              animate={isLoaded ? { opacity: 1, scale: 1, filter: "blur(0px)" } : { opacity: 0, scale: 0.95, filter: "blur(8px)" }}
               transition={{ duration: 1.0, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="heroImgWrap">
@@ -105,7 +105,7 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            <motion.div className="heroCtas" {...centerUp(0.54)}>
+            <motion.div className="heroCtas" {...centerUp(0.54, isLoaded)}>
               <motion.button
                 type="button"
                 className="btn btnPrimary"
@@ -140,7 +140,7 @@ export default function Hero() {
         className="heroScroll"
         aria-hidden="true"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 1.4, duration: 0.6 }}
       >
         <div className="heroScrollLine" />
