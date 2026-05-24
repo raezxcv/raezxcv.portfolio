@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { NAV_LINKS, SITE_META } from "../data/index.js";
 import Grainient from "./ui/Grainient.jsx";
 
@@ -15,6 +15,9 @@ function scrollTo(id) {
 }
 
 function SplineRobot() {
+  const containerRef = useRef(null);
+  const [hasSize, setHasSize] = useState(false);
+
   useEffect(() => {
     if (!document.querySelector(`script[src="${SPLINE_VIEWER_SRC}"]`)) {
       const script = document.createElement("script");
@@ -24,9 +27,31 @@ function SplineRobot() {
     }
   }, []);
 
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const checkSize = () => {
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setHasSize(true);
+      } else {
+        setHasSize(false);
+      }
+    };
+
+    checkSize();
+    const observer = new ResizeObserver(checkSize);
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <div className="footerRobot" aria-hidden="true">
-      <spline-viewer url={SPLINE_SCENE} loading="lazy" />
+    <div ref={containerRef} className="footerRobot" aria-hidden="true">
+      {hasSize && <spline-viewer url={SPLINE_SCENE} loading="lazy" />}
     </div>
   );
 }

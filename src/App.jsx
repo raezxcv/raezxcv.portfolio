@@ -71,7 +71,7 @@ export default function App() {
   }, []);
 
   return (
-    <motion.div
+    <div
       className="layout"
       ref={containerRef}
     >
@@ -94,6 +94,6 @@ export default function App() {
           <Footer />
         </main>
       </div>
-    </motion.div>
+    </div>
   );
 }

@@ -242,14 +242,40 @@ const defaultConfig = {
 
 export function Globe3D({ markers = [], config = {}, className, style, onMarkerClick, onMarkerHover }) {
   const mergedConfig = useMemo(() => ({ ...defaultConfig, ...config }), [config]);
+  const containerRef = useRef(null);
+  const [hasSize, setHasSize] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const checkSize = () => {
+      const rect = el.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setHasSize(true);
+      } else {
+        setHasSize(false);
+      }
+    };
+
+    checkSize();
+    const observer = new ResizeObserver(checkSize);
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return (
-    <div className={className} style={style}>
-      <Canvas gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} dpr={[1, 2]} camera={{ fov: 45, near: 0.1, far: 1000, position: [0, 0, mergedConfig.radius * 3.5] }} style={{ background: mergedConfig.backgroundColor || "transparent" }}>
-        <Suspense fallback={<LoadingFallback />}>
-          <Scene markers={markers} config={mergedConfig} onMarkerClick={onMarkerClick} onMarkerHover={onMarkerHover} />
-        </Suspense>
-      </Canvas>
+    <div ref={containerRef} className={className} style={style}>
+      {hasSize && (
+        <Canvas gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} dpr={[1, 2]} camera={{ fov: 45, near: 0.1, far: 1000, position: [0, 0, mergedConfig.radius * 3.5] }} style={{ background: mergedConfig.backgroundColor || "transparent" }}>
+          <Suspense fallback={<LoadingFallback />}>
+            <Scene markers={markers} config={mergedConfig} onMarkerClick={onMarkerClick} onMarkerHover={onMarkerHover} />
+          </Suspense>
+        </Canvas>
+      )}
     </div>
   );
 }
