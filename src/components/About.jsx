@@ -41,7 +41,7 @@ export default function About() {
             download="Raely_Ivan_Reyes_Resume.pdf"
           >
             <div className="aboutResumeCtaPill">
-              View Resume
+              Download CV
             </div>
             <div className="aboutResumeCtaCircle">
               <ArrowUpRight size={18} strokeWidth={2.5} />
