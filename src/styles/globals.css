@@ -2898,8 +2898,8 @@ html[data-theme="light"] .heroRoleSep {
   background: var(--text);
   color: var(--bg);
   border: none;
-  border-radius: 6px;
-  padding: 10px 22px;
+  border-radius: 99px;
+  padding: 10px 24px;
   font-family: 'Inter', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
@@ -4514,6 +4514,9 @@ html[data-theme="light"] .heroRoleSep {
 /* ── Header override — dark theme for reused Works classes ── */
 .expTrail-headerOverride {}
 
+.expTrail-headerWrapper {
+  padding: 20vh var(--gutter) 0;
+}
 /* ── Body (milestone stack + scroll line container) ── */
 .expTrail-body {
   position: relative;
@@ -4528,7 +4531,6 @@ html[data-theme="light"] .heroRoleSep {
   font-size: clamp(1rem, 2vw, 1.6rem);
   font-weight: 500;
   color: var(--text);
-  white-space: nowrap;
   line-height: 1.4;
   margin-top: 0.2rem;
   margin-bottom: 0.5rem;
@@ -4673,6 +4675,9 @@ html[data-theme="light"] .heroRoleSep {
 @media (max-width: 768px) {
   .expTrail-headerDesc {
     white-space: normal;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
 
   .expTrail-milestoneInner {
@@ -5212,8 +5217,12 @@ body {
   }
 
   .worksSectionTitle {
-    font-size: 5.2rem;
+    font-size: 6.8rem;
     line-height: 0.85;
+  }
+
+  .expTrail-headerWrapper {
+    padding: 8vh var(--gutter) 0;
   }
 
   .worksMetaTags {
@@ -5334,6 +5343,8 @@ body {
 
   .expTrail-marqueeRibbon {
     width: 180vw;
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
   }
 
   .footer {
@@ -5373,7 +5384,23 @@ body {
   }
 
   .footerRobot {
-    display: none;
+    display: block;
+    height: 22rem;
+    margin-top: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  }
+
+  .footerRobot spline-viewer {
+    width: 160%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
   }
 }
 

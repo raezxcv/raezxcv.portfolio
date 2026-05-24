@@ -126,7 +126,7 @@ export default function Experience() {
         aria-hidden="true"
       />
       {/* ── Header ── */}
-      <div style={{ padding: "20vh var(--gutter) 0" }}>
+      <div className="expTrail-headerWrapper">
         <div className="worksSectionHeader expTrail-headerOverride">
           <motion.h2
             className="worksSectionTitle"
