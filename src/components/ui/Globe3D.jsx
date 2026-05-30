@@ -35,14 +35,23 @@ function Marker({ marker, radius, defaultSize, onClick, onHover }) {
 
   const lineHeight = topPosition.distanceTo(surfacePosition);
 
+  // Pre-allocate vectors once to avoid garbage collection memory churn in the frame loop
+  const worldPos = useMemo(() => new THREE.Vector3(), []);
+  const markerDirection = useMemo(() => new THREE.Vector3(), []);
+  const cameraDirection = useMemo(() => new THREE.Vector3(), []);
+
   useFrame(() => {
     if (!imageGroupRef.current) return;
-    const worldPos = new THREE.Vector3();
     imageGroupRef.current.getWorldPosition(worldPos);
-    const markerDirection = worldPos.clone().normalize();
-    const cameraDirection = camera.position.clone().normalize();
+    markerDirection.copy(worldPos).normalize();
+    cameraDirection.copy(camera.position).normalize();
     const dot = markerDirection.dot(cameraDirection);
-    setIsVisible(dot > 0.1);
+    const visible = dot > 0.1;
+    
+    // Avoid redundant state triggers in React rendering frame loop
+    if (visible !== isVisible) {
+      setIsVisible(visible);
+    }
   });
 
   const handlePointerEnter = useCallback(() => {
@@ -244,6 +253,7 @@ export function Globe3D({ markers = [], config = {}, className, style, onMarkerC
   const mergedConfig = useMemo(() => ({ ...defaultConfig, ...config }), [config]);
   const containerRef = useRef(null);
   const [hasSize, setHasSize] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -262,14 +272,21 @@ export function Globe3D({ markers = [], config = {}, className, style, onMarkerC
     const observer = new ResizeObserver(checkSize);
     observer.observe(el);
 
+    // native IntersectionObserver to avoid rendering WebGL while hidden
+    const io = new IntersectionObserver(([entry]) => {
+      setIsInViewport(entry.isIntersecting);
+    }, { rootMargin: "150px" }); // Start rendering 150px before entering viewport for a seamless transition
+    io.observe(el);
+
     return () => {
       observer.disconnect();
+      io.disconnect();
     };
   }, []);
 
   return (
     <div ref={containerRef} className={className} style={style}>
-      {hasSize && (
+      {hasSize && isInViewport && (
         <Canvas gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }} dpr={[1, 2]} camera={{ fov: 45, near: 0.1, far: 1000, position: [0, 0, mergedConfig.radius * 3.5] }} style={{ background: mergedConfig.backgroundColor || "transparent" }}>
           <Suspense fallback={<LoadingFallback />}>
             <Scene markers={markers} config={mergedConfig} onMarkerClick={onMarkerClick} onMarkerHover={onMarkerHover} />

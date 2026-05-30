@@ -43,37 +43,30 @@ export default function App() {
   const currentBgMap = theme === "dark" ? sectionColorsDark : sectionColorsLight;
   const backgroundColor = currentBgMap[activeSection] || currentBgMap.home;
 
-  // Scroll-position based active section tracking
+  // Active section tracking using highly optimized native IntersectionObserver
   useEffect(() => {
-    const OFFSET = 100;
-
-    const getActive = () => {
-      const sections = SECTION_IDS
-        .map((id) => ({ id, el: document.getElementById(id) }))
-        .filter((s) => s.el)
-        .sort((a, b) => a.el.offsetTop - b.el.offsetTop);
-
-      const nearBottom =
-        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 80;
-      if (nearBottom) {
-        const lastNav = [...sections].reverse().find((s) => NAV_LINKS.includes(s.id));
-        if (lastNav) return lastNav.id;
-      }
-
-      let current = sections[0]?.id ?? SECTION_IDS[0];
-      for (const { id, el } of sections) {
-        if (el.getBoundingClientRect().top <= OFFSET) {
-          current = id;
-        }
-      }
-      return current;
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -55% 0px", // Triggers when the section dominates the viewport center
+      threshold: 0,
     };
 
-    const onScroll = () => setActiveSection(getActive());
-    window.addEventListener("scroll", onScroll, { passive: true });
-    setActiveSection(getActive());
-    return () => window.removeEventListener("scroll", onScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
