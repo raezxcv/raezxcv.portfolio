@@ -18,7 +18,7 @@ function latLngToVector3(lat, lng, radius) {
   return new THREE.Vector3(x, y, z);
 }
 
-function Marker({ marker, radius, defaultSize, onClick, onHover }) {
+function Marker({ marker, radius, onClick, onHover }) {
   const [hovered, setHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const groupRef = useRef(null);
@@ -120,7 +120,8 @@ function RotatingGlobe({ config, markers, onMarkerClick, onMarkerHover }) {
   const groupRef = useRef(null);
   const [earthTexture, bumpTexture] = useTexture([config.textureUrl, config.bumpMapUrl]);
 
-  useMemo(() => {
+  useEffect(() => {
+    /* eslint-disable react-hooks/immutability */
     if (earthTexture) {
       earthTexture.colorSpace = THREE.SRGBColorSpace;
       earthTexture.anisotropy = 16;
@@ -128,6 +129,7 @@ function RotatingGlobe({ config, markers, onMarkerClick, onMarkerHover }) {
     if (bumpTexture) {
       bumpTexture.anisotropy = 8;
     }
+    /* eslint-enable react-hooks/immutability */
   }, [earthTexture, bumpTexture]);
 
   const geometry = useMemo(() => new THREE.SphereGeometry(config.radius, 64, 64), [config.radius]);

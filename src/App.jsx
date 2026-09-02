@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
 import { useTheme } from "./hooks/useTheme.js";
 import { NAV_LINKS } from "./data/index.js";
 import Navbar from "./components/Navbar.jsx";
@@ -24,24 +23,7 @@ export default function App() {
     setIsLoading(false);
   }, []);
 
-  // Discrete background color per section mimicking Occupied.unadsgn.tw
-  // Uses sharp Japanese red (#B30000) and deep black/charcoal (#060608)
-  const sectionColorsDark = {
-    home: "#060608",
-    about: "#9C0D0D",
-    works: "#060608",
-    contact: "#060608",
-  };
 
-  const sectionColorsLight = {
-    home: "#f7f6f3",
-    about: "#f4eaea",
-    works: "#f7f6f3",
-    contact: "#f7f6f3",
-  };
-
-  const currentBgMap = theme === "dark" ? sectionColorsDark : sectionColorsLight;
-  const backgroundColor = currentBgMap[activeSection] || currentBgMap.home;
 
   // Active section tracking using highly optimized native IntersectionObserver
   useEffect(() => {
