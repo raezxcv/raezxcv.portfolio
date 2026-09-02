@@ -4789,130 +4789,7 @@ body {
   overflow-x: hidden;
 }
 
-.worksSection {
-  --works-card-w: min(78rem, calc(100vw - max(2rem, 2 * var(--gutter))));
-  --works-card-gap: clamp(2rem, 6vw, 7rem);
-}
 
-.worksProjectCard {
-  height: clamp(32rem, 74vh, 50rem);
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: clamp(1rem, 2vh, 1.35rem);
-  padding: clamp(1rem, 2vw, 1.45rem);
-  border-radius: 18px;
-  background: transparent;
-  color: var(--text);
-  box-shadow: none;
-  transform: rotate(var(--card-rotation)) translateZ(0);
-}
-
-.worksProjectCard::before {
-  display: none;
-}
-
-.worksProjectMediaPanel {
-  position: relative;
-  min-height: 0;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  overflow: hidden;
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at 78% 16%, rgba(255, 255, 255, 0.28), transparent 26%),
-    linear-gradient(135deg, var(--project-bg), color-mix(in srgb, var(--project-bg) 76%, #000 24%));
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
-  isolation: isolate;
-}
-
-.worksProjectMediaPanel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(115deg, rgba(255, 255, 255, 0.14) 0 14%, transparent 14% 30%, rgba(255, 255, 255, 0.1) 30% 43%, transparent 43%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0 2px, transparent 2px 120px);
-}
-
-.worksProjectTop {
-  padding: clamp(1rem, 1.8vw, 1.55rem);
-}
-
-.worksProjectLogo {
-  width: clamp(4rem, 5.8vw, 5.6rem);
-  height: clamp(4rem, 5.8vw, 5.6rem);
-  border-radius: 18px;
-}
-
-.worksProjectMeta {
-  font-size: 0.62rem;
-}
-
-.worksProjectMockupWrap {
-  min-height: 0;
-  margin: 0;
-  padding: clamp(1rem, 2.4vw, 2rem);
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-
-.worksProjectMockupWrap::before {
-  content: "";
-  position: absolute;
-  inset: clamp(0.5rem, 1.6vw, 1.35rem) clamp(1rem, 2.5vw, 2.2rem) clamp(1rem, 2vw, 1.6rem);
-  border-radius: clamp(14px, 2vw, 24px);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.88));
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
-    0 24px 54px rgba(0, 0, 0, 0.2);
-  pointer-events: none;
-}
-
-.worksProjectMockup {
-  position: relative;
-  z-index: 1;
-  width: auto;
-  height: auto;
-  max-width: min(82%, 52rem);
-  max-height: 100%;
-  object-fit: contain;
-  object-position: center;
-  filter: drop-shadow(0 24px 34px rgba(0, 0, 0, 0.26));
-}
-
-.worksProjectBody {
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.85fr);
-  padding: 0 clamp(0.2rem, 0.7vw, 0.5rem);
-  border-top: 0;
-  background: transparent;
-  backdrop-filter: none;
-  color: var(--text);
-}
-
-.worksProjectTitle {
-  color: var(--text);
-  font-size: clamp(4.2rem, 5.8rem, 5.8rem);
-  line-height: 0.82;
-}
-
-.worksProjectSummary,
-.worksProjectRole {
-  color: var(--text-secondary);
-}
-
-.worksProjectCard .workTag {
-  background: transparent;
-  border-color: rgba(26, 26, 26, 0.32);
-  color: var(--text);
-  backdrop-filter: none;
-}
-
-.worksProjectCard .linkOut {
-  color: var(--text);
-}
 
 .contactBentoHeroCard {
   display: flex;
@@ -5504,119 +5381,7 @@ body {
   }
 }
 
-/* Requested hero and work-card refinements */
-.worksProjectCard {
-  flex: 0 0 var(--works-card-w);
-  width: var(--works-card-w);
-  height: clamp(34rem, 76vh, 54rem);
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  grid-template-rows: auto auto;
-  align-content: start;
-  gap: 0;
-  padding: 0;
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.28), transparent 28%),
-    linear-gradient(135deg, var(--project-bg), color-mix(in srgb, var(--project-bg) 76%, #000 24%));
-  color: #fff;
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.22);
-  transform: rotate(var(--card-rotation));
-  transform-origin: center;
-  scroll-snap-align: center;
-  isolation: isolate;
-}
 
-.worksProjectCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  display: block;
-  background:
-    linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0 14%, transparent 14% 30%, rgba(255, 255, 255, 0.11) 30% 43%, transparent 43%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 120px);
-  opacity: 0.8;
-}
-
-.worksProjectMediaPanel {
-  display: contents;
-}
-
-.worksProjectMediaPanel::before {
-  display: none;
-}
-
-.worksProjectTop {
-  padding: clamp(1.15rem, 2vw, 1.75rem);
-}
-
-.worksProjectLogo {
-  width: clamp(3.8rem, 8vw, 6rem);
-  height: clamp(3.8rem, 8vw, 6rem);
-  border-radius: 20px;
-}
-
-.worksProjectMockupWrap {
-  min-height: clamp(18rem, 42vh, 33rem);
-  margin: 0 clamp(1.2rem, 2.7vw, 2.5rem) clamp(1rem, 2vh, 1.4rem);
-  padding: clamp(1rem, 2.4vw, 2rem);
-  border-radius: clamp(18px, 2vw, 28px);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.82)),
-    color-mix(in srgb, var(--project-bg) 10%, #fff 90%);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  box-shadow:
-    0 22px 52px rgba(0, 0, 0, 0.24),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.3);
-}
-
-.worksProjectMockupWrap::before {
-  display: none;
-}
-
-.worksProjectMockup {
-  width: min(94%, 58rem);
-  height: auto;
-  max-width: none;
-  max-height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 30px 44px rgba(0, 0, 0, 0.32));
-  border-radius: 14px;
-}
-
-.worksProjectBody {
-  grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.8fr);
-  padding: clamp(1.5rem, 3.2vw, 2.7rem);
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.22)),
-    rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  color: #fff;
-}
-
-.worksProjectTitle {
-  color: #fff;
-  font-size: clamp(3.8rem, 7vw, 7rem);
-}
-
-.worksProjectSummary,
-.worksProjectRole {
-  color: rgba(255, 255, 255, 0.84);
-}
-
-.worksProjectCard .workTag {
-  background: rgba(0, 0, 0, 0.18);
-  border-color: rgba(255, 255, 255, 0.32);
-  color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-}
-
-.worksProjectCard .linkOut {
-  color: rgba(255, 255, 255, 0.85);
-}
 
 @media (max-width: 819px) {
   .hero {
@@ -5853,47 +5618,74 @@ body {
   }
 }
 
-/* Large project cards with polaroid-style image cover */
+/* ──────────────────────────────────────────────────────────────
+   FEATURED WORKS - Responsive & Aspect-Ratio Preserved Card System
+   ────────────────────────────────────────────────────────────── */
+
 .worksSection {
-  --works-card-w: min(78rem, calc(100vw - max(2rem, 2 * var(--gutter))));
-  --works-card-gap: clamp(2rem, 6vw, 7rem);
+  --works-card-w: min(72rem, calc(88vw - 2rem));
+  --works-card-gap: clamp(2rem, 5vw, 6rem);
 }
 
 .worksCarouselStage {
+  position: relative;
   min-height: var(--works-stage-height, 400vh);
 }
 
 .worksPinned {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: clamp(0.5rem, 1.5vh, 1rem) 0 clamp(1rem, 2vh, 1.75rem);
+  padding: clamp(1rem, 2vh, 2rem) 0;
+  overflow: hidden;
 }
 
 .worksCarouselViewport {
-  min-height: min(100vh, 58rem);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: visible;
 }
 
+.worksCarouselTrack {
+  display: flex;
+  gap: var(--works-card-gap);
+  padding-inline: max(var(--gutter), calc((100vw - var(--works-card-w)) / 2));
+  will-change: transform;
+}
+
+/* ── Card Base Container with Preserved Aspect Ratio (GPU Accelerated) ── */
 .worksProjectCard {
   flex: 0 0 var(--works-card-w);
   width: var(--works-card-w);
-  height: clamp(34rem, 76vh, 54rem);
+  aspect-ratio: 16 / 10;
+  max-height: clamp(480px, 80vh, 680px);
   position: relative;
   overflow: hidden;
-  display: grid;
-  grid-template-rows: minmax(0, 75%) minmax(0, 25%);
-  align-content: stretch;
-  gap: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  border-radius: clamp(20px, 2vw, 30px);
   background:
-    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.28), transparent 28%),
-    linear-gradient(135deg, var(--project-bg), color-mix(in srgb, var(--project-bg) 76%, #000 24%));
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.28), transparent 32%),
+    linear-gradient(135deg, var(--project-bg), color-mix(in srgb, var(--project-bg) 75%, #000 25%));
   color: #fff;
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.22);
-  transform: rotate(var(--card-rotation));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+  transform: rotate(var(--card-rotation)) translateZ(0);
   transform-origin: center;
   scroll-snap-align: center;
   isolation: isolate;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style paint;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.worksProjectCard:hover {
+  transform: rotate(0deg) translateY(-6px) translateZ(0);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.38);
 }
 
 .worksProjectCard::before {
@@ -5906,46 +5698,76 @@ body {
     linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0 14%, transparent 14% 30%, rgba(255, 255, 255, 0.11) 30% 43%, transparent 43%),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.06) 0 2px, transparent 2px 120px);
   opacity: 0.8;
+  pointer-events: none;
 }
 
+/* ── Top Media Panel (70% height proportion - Full Photo Cover, No White BG) ── */
 .worksProjectMediaPanel {
-  display: contents;
-}
-
-.worksProjectMediaPanel::before {
-  display: none;
-}
-
-.worksProjectTop {
-  display: none;
-}
-
-.worksProjectMeta {
-  display: none;
-}
-
-.worksProjectMockupWrap {
-  position: relative;
-  z-index: 2;
+  flex: 0 0 70%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(255, 255, 255, 0.32), transparent 32%),
+    linear-gradient(135deg, var(--project-bg), color-mix(in srgb, var(--project-bg) 75%, #000 25%));
+}
+
+.worksProjectLogoOverlay {
+  position: absolute;
+  top: clamp(0.85rem, 1.8vw, 1.4rem);
+  left: clamp(0.85rem, 1.8vw, 1.4rem);
+  z-index: 5;
+  width: clamp(2.8rem, 4.6vw, 4.4rem);
+  height: clamp(2.8rem, 4.6vw, 4.4rem);
+  object-fit: contain;
+  border-radius: clamp(10px, 1.2vw, 16px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  padding: 4px;
   pointer-events: none;
-  min-height: 0;
-  height: auto;
-  align-self: stretch;
-  margin: clamp(1.15rem, 2vw, 1.8rem) clamp(0.9rem, 3vw, 3.25rem) clamp(0.45rem, 1vh, 0.8rem);
+}
+
+.worksProjectMeta {
+  position: absolute;
+  top: clamp(0.85rem, 1.8vw, 1.4rem);
+  right: clamp(0.85rem, 1.8vw, 1.4rem);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+  pointer-events: none;
+}
+
+.worksProjectMeta span {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: clamp(0.3rem, 0.6vw, 0.42rem) clamp(0.65rem, 1vw, 0.88rem);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.worksProjectMockupWrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
   padding: 0;
-  border: 0;
-  border-radius: clamp(10px, 1vw, 14px);
+  border: none;
+  border-radius: 0;
   background: transparent;
   box-shadow: none;
   overflow: hidden;
-  transform: rotate(var(--mockup-rotation));
-}
-
-.worksProjectMockupWrap::before {
-  display: none;
 }
 
 .worksProjectMockup {
@@ -5956,153 +5778,213 @@ body {
   object-fit: cover;
   object-position: center;
   filter: none;
-  border-radius: clamp(10px, 1vw, 14px);
+  border-radius: 0;
+  pointer-events: none;
 }
 
-.worksProjectLogoOverlay {
-  position: absolute;
-  top: clamp(0.9rem, 1.6vw, 1.45rem);
-  left: clamp(0.9rem, 1.6vw, 1.45rem);
-  z-index: 3;
-  width: clamp(3.7rem, 5.6vw, 5.8rem);
-  height: clamp(3.7rem, 5.6vw, 5.8rem);
-  object-fit: contain;
-  border-radius: 18px;
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
-}
-
+/* ── Bottom Body Panel (30% height proportion - Optimized Composite Layer) ── */
 .worksProjectBody {
+  flex: 0 0 30%;
+  height: 30%;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(14rem, 0.8fr);
-  align-items: end;
-  align-self: stretch;
-  gap: clamp(1rem, 3vw, 2.5rem);
-  padding: clamp(0.35rem, 0.8vh, 0.75rem) clamp(1.5rem, 3.2vw, 2.7rem) clamp(1.3rem, 2.6vw, 2.25rem);
-  border-top: 0;
-  background: transparent;
-  backdrop-filter: none;
-  color: #fff;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 2rem);
+  padding: clamp(0.75rem, 1.8vw, 1.4rem) clamp(1.2rem, 2.6vw, 2.2rem);
   position: relative;
-  z-index: 4;
+  z-index: 3;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+  color: #fff;
 }
 
 .worksProjectTitle {
   font-family: 'Thunder', sans-serif;
-  font-size: clamp(3.2rem, 5.7vw, 5.9rem);
+  font-size: clamp(2.4rem, 4.5vw, 5.2rem);
   font-weight: 700;
   text-transform: uppercase;
-  line-height: 0.82;
+  line-height: 0.84;
   letter-spacing: 0.02em;
   color: #fff;
   margin: 0;
 }
 
 .worksProjectSummary {
-  display: block;
-  max-width: 48ch;
-  margin: 0.7rem 0 0;
-  overflow: visible;
   font-family: 'Inter', sans-serif;
-  font-size: clamp(0.78rem, 1vw, 0.95rem);
-  font-weight: 500;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(0.72rem, 0.95vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.45;
+  font-weight: 400;
+  margin: clamp(0.3rem, 0.6vh, 0.5rem) 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .worksProjectDetails {
   display: flex;
-  justify-self: end;
-  align-self: end;
+  flex-direction: column;
   align-items: flex-end;
   text-align: right;
-}
-
-.worksProjectDetails .workTags {
-  justify-content: flex-end;
+  gap: clamp(0.4rem, 0.8vh, 0.75rem);
 }
 
 .worksProjectRole {
-  color: rgba(255, 255, 255, 0.86);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(0.68rem, 0.85vw, 0.82rem);
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.workTags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: clamp(0.3rem, 0.5vw, 0.45rem);
 }
 
 .worksProjectCard .workTag {
-  background: rgba(0, 0, 0, 0.18);
-  border-color: rgba(255, 255, 255, 0.32);
-  color: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
+  font-size: clamp(0.55rem, 0.7vw, 0.65rem);
+  padding: 3px 9px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
 }
 
 .worksProjectCard .projectLinks {
+  grid-column: 1 / -1;
   display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 0.2rem;
 }
 
 .worksProjectCard .linkOut {
-  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+  color: rgba(255, 255, 255, 0.88);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-@media (max-width: 819px) {
+.worksProjectCard .linkOut:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* ── Mobile & Tablet Responsiveness (< 1024px) ── */
+@media (max-width: 1023px) {
+  .worksSection {
+    min-height: auto;
+    padding: clamp(3.5rem, 8vw, 5.5rem) 0;
+  }
+
   .worksCarouselStage {
     min-height: auto;
   }
 
   .worksPinned {
-    justify-content: flex-start;
+    position: relative;
+    top: auto;
+    height: auto;
     padding: 0;
+    overflow: visible;
   }
 
   .worksCarouselViewport {
-    min-height: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .worksCarouselViewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .worksCarouselTrack {
+    transform: none !important;
+    padding-inline: var(--gutter);
+    gap: 1.25rem;
   }
 
   .worksProjectCard {
-    width: 100%;
-    flex: none;
-    min-height: auto;
-    height: auto;
-    grid-template-rows: auto auto;
-    transform: none;
-    border-radius: 22px;
-  }
-
-  .worksProjectMockupWrap {
-    min-height: 15.5rem;
-    height: 15.5rem;
-    margin: 0.85rem 0.75rem 1.35rem;
-    padding: 0;
-    border-radius: 18px;
-    transform: none;
-  }
-
-  .worksProjectMockup {
+    flex: 0 0 min(86vw, 360px);
+    width: min(86vw, 360px);
+    aspect-ratio: 4 / 5.2;
     max-height: none;
+    height: auto;
+    transform: none !important;
+    border-radius: 24px;
+  }
+
+  .worksProjectMediaPanel {
+    flex: 0 0 70%;
+    height: 70%;
   }
 
   .worksProjectLogoOverlay {
-    width: 3.7rem;
-    height: 3.7rem;
-    border-radius: 14px;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 12px;
+  }
+
+  .worksProjectMeta {
+    font-size: 0.54rem;
   }
 
   .worksProjectBody {
+    flex: 0 0 30%;
+    height: 30%;
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 0.5rem;
+    padding: 0.85rem 1rem;
+    align-items: start;
   }
 
   .worksProjectTitle {
-    font-size: clamp(3rem, 13.5vw, 4.6rem);
+    font-size: clamp(2.2rem, 9vw, 3.4rem);
+  }
+
+  .worksProjectSummary {
+    font-size: 0.76rem;
+    -webkit-line-clamp: 2;
   }
 
   .worksProjectDetails {
-    align-items: flex-start !important;
-    text-align: left !important;
-    justify-self: start !important;
-    align-self: start !important;
-    width: 100% !important;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .worksProjectDetails .workTags {
-    justify-content: flex-start !important;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .worksProjectCard {
+    flex: 0 0 calc(100vw - 2 * var(--gutter));
+    width: calc(100vw - 2 * var(--gutter));
+    aspect-ratio: 4 / 5.4;
+    border-radius: 20px;
+  }
+
+  .worksProjectMediaPanel {
+    flex: 0 0 70%;
+    height: 70%;
+  }
+
+  .worksProjectBody {
+    flex: 0 0 30%;
+    height: 30%;
+    padding: 0.75rem;
+  }
+
+  .worksProjectTitle {
+    font-size: 2rem;
   }
 }
 

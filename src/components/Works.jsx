@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { PROJECTS } from "../data/index.js";
 
@@ -10,7 +10,7 @@ const MotionDiv = motion.div;
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 819px)');
+    const mediaQuery = window.matchMedia('(max-width: 1023px)');
     const update = () => setIsMobile(mediaQuery.matches);
     update();
     mediaQuery.addEventListener('change', update);
@@ -33,32 +33,22 @@ function ProjectCard({ project, index }) {
       }}
     >
       <div className="worksProjectMediaPanel">
-        <div className="worksProjectTop">
-          {project.logo && (
-            <img
-              src={project.logo}
-              alt={`${project.title} logo`}
-              className="worksProjectLogo"
-              loading="lazy"
-            />
-          )}
-          <div className="worksProjectMeta">
-            <span>PROJECT {String(index + 1).padStart(2, "0")}</span>
-            <span>{project.year}</span>
-          </div>
+        {project.logo && (
+          <img
+            src={project.logo}
+            alt={`${project.title} logo`}
+            className="worksProjectLogoOverlay"
+            loading="lazy"
+          />
+        )}
+        <div className="worksProjectMeta">
+          <span>PROJECT {String(index + 1).padStart(2, "0")}</span>
+          <span>{project.year}</span>
         </div>
 
-        <div className="worksProjectMockupWrap" aria-hidden="true">
-          {project.logo && (
-            <img
-              src={project.logo}
-              alt=""
-              className="worksProjectLogoOverlay"
-              loading="lazy"
-            />
-          )}
+        <div className="worksProjectMockupWrap">
           {project.mockup && (
-            <img src={project.mockup} alt="" className="worksProjectMockup" loading="lazy" />
+            <img src={project.mockup} alt={project.title} className="worksProjectMockup" loading="lazy" />
           )}
         </div>
       </div>
@@ -116,7 +106,8 @@ export default function Works() {
     target: stageRef,
     offset: ["start start", "end end"],
   });
-  const x = useTransform(scrollYProgress, [0, 1], [0, -maxShift]);
+  const rawX = useTransform(scrollYProgress, [0, 1], [0, -maxShift]);
+  const x = useSpring(rawX, { stiffness: 350, damping: 38, restDelta: 0.001 });
 
   useEffect(() => {
     const track = trackRef.current;
@@ -143,10 +134,11 @@ export default function Works() {
     };
   }, []);
 
-  // Touch-swipe → scroll bridge
+  // Touch-swipe → scroll bridge (rAF throttled)
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage || isMobile) return;
+    let touchRaf = null;
 
     const onTouchStart = (e) => {
       touchStartX.current = e.touches[0].clientX;
@@ -159,18 +151,18 @@ export default function Works() {
       const dx = e.touches[0].clientX - touchStartX.current;
       const dy = e.touches[0].clientY - touchStartY.current;
 
-      // Determine swipe axis once we have enough movement
       if (!isHSwipe.current && Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
       if (!isHSwipe.current) {
         isHSwipe.current = Math.abs(dx) > Math.abs(dy);
       }
 
       if (isHSwipe.current && maxShift > 0) {
-        e.preventDefault(); // block vertical scroll while swiping cards
-        // Map horizontal drag to the equivalent vertical scroll position
+        e.preventDefault();
         const stageScrollRange = stage.scrollHeight - window.innerHeight;
         const ratio = stageScrollRange / maxShift;
-        window.scrollTo({ top: touchStartScroll.current - dx * ratio, behavior: "instant" });
+        const targetY = touchStartScroll.current - dx * ratio;
+        if (touchRaf) cancelAnimationFrame(touchRaf);
+        touchRaf = requestAnimationFrame(() => window.scrollTo(0, targetY));
       }
     };
 
@@ -178,44 +170,45 @@ export default function Works() {
     stage.addEventListener("touchmove", onTouchMove, { passive: false });
 
     return () => {
+      if (touchRaf) cancelAnimationFrame(touchRaf);
       stage.removeEventListener("touchstart", onTouchStart);
       stage.removeEventListener("touchmove", onTouchMove);
     };
-  }, [maxShift]);
+  }, [maxShift, isMobile]);
 
-  // Mouse click-drag → scroll bridge
+  // Mouse click-drag → scroll bridge (rAF throttled)
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage || isMobile) return;
+    let mouseRaf = null;
 
     const onMouseDown = (e) => {
       if (e.button !== 0) return;
-      // Only activate drag when actually scrolled into the works zone
       const prog = scrollYProgress.get();
       if (prog <= 0 || prog >= 1) return;
 
       mouseStartX.current = e.clientX;
       mouseStartScroll.current = window.scrollY;
       isDragging.current = false;
-      stage.dataset.dragging = "false";
 
       const onMouseMove = (mv) => {
         const dx = mv.clientX - mouseStartX.current;
         if (!isDragging.current && Math.abs(dx) < 5) return;
         if (!isDragging.current) {
           isDragging.current = true;
-          stage.dataset.dragging = "true";
         }
         if (maxShift > 0) {
           const stageScrollRange = stage.scrollHeight - window.innerHeight;
           const ratio = stageScrollRange / maxShift;
-          window.scrollTo({ top: mouseStartScroll.current - dx * ratio, behavior: "instant" });
+          const targetY = mouseStartScroll.current - dx * ratio;
+          if (mouseRaf) cancelAnimationFrame(mouseRaf);
+          mouseRaf = requestAnimationFrame(() => window.scrollTo(0, targetY));
         }
       };
 
       const onMouseUp = () => {
+        if (mouseRaf) cancelAnimationFrame(mouseRaf);
         isDragging.current = false;
-        stage.dataset.dragging = "false";
         window.removeEventListener("mousemove", onMouseMove);
         window.removeEventListener("mouseup", onMouseUp);
       };
@@ -226,7 +219,7 @@ export default function Works() {
 
     stage.addEventListener("mousedown", onMouseDown);
     return () => stage.removeEventListener("mousedown", onMouseDown);
-  }, [maxShift, scrollYProgress]);
+  }, [maxShift, isMobile, scrollYProgress]);
 
   return (
     <section
