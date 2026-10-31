@@ -5790,12 +5790,17 @@ body {
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   align-items: center;
   gap: clamp(0.8rem, 2vw, 2rem);
-  padding: clamp(0.75rem, 1.8vw, 1.4rem) clamp(1.2rem, 2.6vw, 2.2rem);
+  padding: clamp(0.85rem, 1.8vw, 1.35rem) clamp(1.2rem, 2.6vw, 2.2rem) clamp(1.15rem, 2vw, 1.75rem);
   position: relative;
   z-index: 3;
   border-top: 1px solid rgba(255, 255, 255, 0.22);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
   color: #fff;
+}
+
+.worksProjectInfo {
+  display: flex;
+  flex-direction: column;
 }
 
 .worksProjectTitle {
@@ -5855,11 +5860,10 @@ body {
 }
 
 .worksProjectCard .projectLinks {
-  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  margin-top: 0.2rem;
+  margin-top: clamp(0.5rem, 1.2vh, 0.8rem);
 }
 
 .worksProjectCard .linkOut {
@@ -5875,8 +5879,8 @@ body {
   border-bottom-color: #fff;
 }
 
-/* ── Mobile & Tablet Responsiveness (< 1024px) ── */
-@media (max-width: 1023px) {
+/* ── Tablet Responsiveness (820px to 1023px) ── */
+@media (min-width: 820px) and (max-width: 1023px) {
   .worksSection {
     min-height: auto;
     padding: clamp(3.5rem, 8vw, 5.5rem) 0;
@@ -5914,16 +5918,22 @@ body {
   .worksProjectCard {
     flex: 0 0 min(86vw, 360px);
     width: min(86vw, 360px);
-    aspect-ratio: 4 / 5.2;
+    aspect-ratio: auto;
     max-height: none;
     height: auto;
     transform: none !important;
     border-radius: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   .worksProjectMediaPanel {
-    flex: 0 0 70%;
-    height: 70%;
+    flex: none;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    min-height: 0;
   }
 
   .worksProjectLogoOverlay {
@@ -5937,54 +5947,271 @@ body {
   }
 
   .worksProjectBody {
-    flex: 0 0 30%;
-    height: 30%;
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-    padding: 0.85rem 1rem;
-    align-items: start;
+    flex: none;
+    height: auto;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 1.15rem 1.25rem 1.5rem;
+    align-items: stretch;
+    overflow: visible;
   }
 
   .worksProjectTitle {
-    font-size: clamp(2.2rem, 9vw, 3.4rem);
+    font-size: clamp(2rem, 7.5vw, 2.75rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    margin: 0;
   }
 
   .worksProjectSummary {
-    font-size: 0.76rem;
-    -webkit-line-clamp: 2;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
   }
 
   .worksProjectDetails {
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    gap: 0.4rem;
+    margin-top: 0.35rem;
+    width: 100%;
+  }
+
+  .worksProjectRole {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
   }
 
   .worksProjectDetails .workTags {
+    display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
+    gap: 0.35rem;
+  }
+
+  .worksProjectCard .projectLinks {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 0.35rem;
+  }
+
+  .worksProjectCard .linkOut {
+    color: rgba(255, 255, 255, 0.88);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
   }
 }
 
-@media (max-width: 480px) {
+/* ── Mobile Phone Responsiveness (< 820px) ── */
+@media (max-width: 819px) {
+  .worksSection {
+    min-height: auto;
+    padding: clamp(3rem, 7vw, 4.5rem) 0;
+  }
+
+  .worksCarouselStage {
+    min-height: auto;
+  }
+
+  .worksPinned {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .worksCarouselViewport {
+    display: block;
+    overflow: visible;
+    padding: 0 var(--gutter);
+  }
+
+  .worksCarouselTrack {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 0;
+    gap: 2rem;
+    transform: none !important;
+  }
+
+  /* ── Mobile Card: Extends height depending on content ── */
   .worksProjectCard {
-    flex: 0 0 calc(100vw - 2 * var(--gutter));
-    width: calc(100vw - 2 * var(--gutter));
-    aspect-ratio: 4 / 5.4;
-    border-radius: 20px;
+    width: 100% !important;
+    flex: none !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transform: none !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.32) !important;
   }
 
+  .worksProjectCard:hover {
+    transform: none !important;
+  }
+
+  /* ── Mockup Media Panel: Generous view showing hero headline clearly ── */
   .worksProjectMediaPanel {
-    flex: 0 0 70%;
-    height: 70%;
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 10.5 !important;
+    min-height: 200px !important;
+    position: relative !important;
+    overflow: hidden !important;
   }
 
+  .worksProjectMockup {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+  }
+
+  .worksProjectLogoOverlay {
+    position: absolute !important;
+    top: 0.85rem !important;
+    left: 0.85rem !important;
+    z-index: 5 !important;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    border-radius: 10px !important;
+    background: rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    padding: 3px !important;
+    pointer-events: none !important;
+  }
+
+  .worksProjectMeta {
+    position: absolute !important;
+    top: 0.85rem !important;
+    right: 0.85rem !important;
+    z-index: 5 !important;
+    display: flex !important;
+    gap: 0.35rem !important;
+    font-size: 0.58rem !important;
+  }
+
+  .worksProjectMeta span {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 999px !important;
+    padding: 0.25rem 0.55rem !important;
+    background: rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(8px) !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  /* ── Body Panel: Natural content height so all text is 100% readable ── */
   .worksProjectBody {
-    flex: 0 0 30%;
-    height: 30%;
-    padding: 0.75rem;
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 1.25rem 1.25rem 1.6rem !important;
+    gap: 0.65rem !important;
+    align-items: stretch !important;
+    overflow: visible !important;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.16) !important;
   }
 
   .worksProjectTitle {
-    font-size: 2rem;
+    font-size: clamp(2rem, 7.5vw, 2.75rem) !important;
+    line-height: 0.92 !important;
+    letter-spacing: 0.02em !important;
+    margin: 0 !important;
+    color: #fff !important;
+  }
+
+  .worksProjectSummary {
+    font-size: 0.84rem !important;
+    line-height: 1.48 !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    margin: 0 !important;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+  }
+
+  .worksProjectDetails {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    gap: 0.45rem !important;
+    margin-top: 0.35rem !important;
+    width: 100% !important;
+  }
+
+  .worksProjectRole {
+    display: block !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+    margin: 0 !important;
+  }
+
+  .worksProjectDetails .workTags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 0.35rem !important;
+  }
+
+  .worksProjectCard .workTag {
+    font-size: 0.62rem !important;
+    padding: 3px 8.5px !important;
+    border-radius: 999px !important;
+  }
+
+  .worksProjectCard .projectLinks {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.85rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  .worksProjectCard .linkOut {
+    color: rgba(255, 255, 255, 0.88) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    padding: 3px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.45) !important;
+    transition: color 0.2s ease, border-color 0.2s ease !important;
+  }
+
+  .worksProjectCard .linkOut:hover {
+    color: #ffffff !important;
+    border-bottom-color: #ffffff !important;
   }
 }
 

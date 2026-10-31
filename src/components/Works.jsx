@@ -54,9 +54,23 @@ function ProjectCard({ project, index }) {
       </div>
 
       <div className="worksProjectBody">
-        <div>
+        <div className="worksProjectInfo">
           <h3 className="worksProjectTitle">{project.title}</h3>
           <p className="worksProjectSummary">{project.summary}</p>
+          {hasLinks && (
+            <div className="projectLinks">
+              {project.live && project.live !== "#" && (
+                <a href={project.live} target="_blank" rel="noopener noreferrer" className="linkOut">
+                  Live Site <ArrowUpRight size={12} />
+                </a>
+              )}
+              {project.github && project.github !== "#" && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="linkOut">
+                  Repository <ArrowUpRight size={12} />
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="worksProjectDetails">
@@ -69,21 +83,6 @@ function ProjectCard({ project, index }) {
             ))}
           </div>
         </div>
-
-        {hasLinks && (
-          <div className="projectLinks">
-            {project.live && project.live !== "#" && (
-              <a href={project.live} target="_blank" rel="noreferrer" className="linkOut">
-                Live Site <ArrowUpRight size={12} />
-              </a>
-            )}
-            {project.github && project.github !== "#" && (
-              <a href={project.github} target="_blank" rel="noreferrer" className="linkOut">
-                Repository <ArrowUpRight size={12} />
-              </a>
-            )}
-          </div>
-        )}
       </div>
     </article>
   );
@@ -106,21 +105,26 @@ export default function Works() {
     target: stageRef,
     offset: ["start start", "end end"],
   });
-  const rawX = useTransform(scrollYProgress, [0, 1], [0, -maxShift]);
-  const x = useSpring(rawX, { stiffness: 350, damping: 38, restDelta: 0.001 });
+  // Stops in the middle at 0.88 and holds briefly before unpinning with crisp, near-instant tracking
+  const rawX = useTransform(scrollYProgress, [0, 0.88, 1], [0, -maxShift, -maxShift], { clamp: true });
+  const springX = useSpring(rawX, { stiffness: 580, damping: 48, mass: 0.1, restDelta: 0.001 });
+  // Firmly clamp x so it can never exceed -maxShift or overshoot past the middle
+  const x = useTransform(springX, (val) => Math.max(-maxShift, Math.min(0, val)));
 
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return undefined;
 
     const measure = () => {
-      const firstCard = track.querySelector(".worksProjectCard");
-      if (!firstCard) return;
+      const cards = track.querySelectorAll(".worksProjectCard");
+      if (cards.length < 2) return;
 
-      const styles = window.getComputedStyle(track);
-      const gap = parseFloat(styles.columnGap || styles.gap || "0");
-      const cardWidth = firstCard.getBoundingClientRect().width;
-      setMaxShift(Math.max(0, (cardWidth + gap) * (PROJECTS.length - 1)));
+      const lastCard = cards[cards.length - 1];
+
+      // Exact pixel shift so the last card sits perfectly in the middle of the viewport
+      const lastCenterInTrack = lastCard.offsetLeft + lastCard.offsetWidth / 2;
+      const targetShift = lastCenterInTrack - window.innerWidth / 2;
+      setMaxShift(Math.max(0, targetShift));
     };
 
     measure();
