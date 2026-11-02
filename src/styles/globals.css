@@ -6221,3 +6221,60 @@ body {
     display: none;
   }
 }
+
+
+/* ── Tablet Responsiveness: Hero (820px – 1199px) ─────────────────────────── */
+@media (min-width: 820px) and (max-width: 1199px) {
+
+  /* Tighten hero padding */
+  .hero {
+    padding: calc(var(--nav-h) + 1rem) clamp(1.2rem, 4vw, 2rem) 2.5rem;
+  }
+
+  .heroCenterStack {
+    margin: 1rem 0;
+    min-height: calc(100svh - var(--nav-h) - 3rem);
+  }
+
+  /* Shrink name font and reduce horizontal stretch so it doesn't overflow */
+  .heroNameLine {
+    font-size: clamp(4rem, 12.5vw, 7.5rem);
+    transform: scaleX(1.12);
+    white-space: nowrap;
+  }
+
+  /* Top bar — keep horizontal on tablet */
+  .heroNameTopBar {
+    margin-bottom: 0.8vw;
+    padding: 0 1%;
+  }
+
+  .heroNameTopLeft {
+    font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+    letter-spacing: 0.12em;
+  }
+
+  .heroNameTopRight {
+    display: flex;
+    font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+    gap: clamp(0.6rem, 1.5vw, 1.2rem);
+    flex-wrap: nowrap;
+  }
+
+  /* Roles row — shrink and tighten */
+  .heroNameBottomRoles {
+    font-size: clamp(0.54rem, 0.82vw, 0.72rem);
+    margin-top: -1.2vw;
+    padding: 0 1%;
+    letter-spacing: 0.1em;
+  }
+
+  /* CTAs — keep absolute but closer */
+  .heroCtas {
+    bottom: -1.5rem;
+  }
+
+  .btn {
+    padding: 16px 36px;
+  }
+}
