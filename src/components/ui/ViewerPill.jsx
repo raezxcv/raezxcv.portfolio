@@ -79,6 +79,7 @@ export default function ViewerPill() {
   const cleanupRef = useRef(null);
 
   useEffect(() => {
+    if (!db) return;
     const visitorId  = getVisitorId();
     const viewerRef  = ref(db, `portfolio/viewers/${visitorId}`); // keyed by visitorId → no duplicates
     const visitRef   = ref(db, `portfolio/visits/${visitorId}`);  // same key → upsert, not append
