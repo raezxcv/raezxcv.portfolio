@@ -6223,58 +6223,123 @@ body {
 }
 
 
-/* ── Tablet Responsiveness: Hero (820px – 1199px) ─────────────────────────── */
+/* ── Tablet Hero (820px – 1199px): stacked name, no nav text ─────────────── */
 @media (min-width: 820px) and (max-width: 1199px) {
 
-  /* Tighten hero padding */
   .hero {
-    padding: calc(var(--nav-h) + 1rem) clamp(1.2rem, 4vw, 2rem) 2.5rem;
+    height: auto;
+    min-height: 100svh;
+    padding: calc(var(--nav-h) + 1.1rem) clamp(1.5rem, 5vw, 3rem) 2.5rem;
+    justify-content: flex-start;
+  }
+
+  .heroInner,
+  .heroStackedWrap {
+    width: 100%;
+    height: 100%;
+  }
+
+  .heroStackedWrap {
+    align-items: stretch;
+    text-align: justify;
   }
 
   .heroCenterStack {
-    margin: 1rem 0;
     min-height: calc(100svh - var(--nav-h) - 3rem);
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding-top: 0;
+    flex-direction: column;
   }
 
-  /* Shrink name font and reduce horizontal stretch so it doesn't overflow */
-  .heroNameLine {
-    font-size: clamp(4rem, 12.5vw, 7.5rem);
-    transform: scaleX(1.12);
-    white-space: nowrap;
+  .heroNameWrapper {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    transform: none;
+    z-index: 2;
+    align-items: flex-start;
+    gap: 0;
+    flex: 1;
+    justify-content: center;
   }
 
-  /* Top bar — keep horizontal on tablet */
   .heroNameTopBar {
-    margin-bottom: 0.8vw;
-    padding: 0 1%;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin-bottom: clamp(0.5rem, 2vh, 1rem);
   }
 
   .heroNameTopLeft {
-    font-size: clamp(0.62rem, 0.85vw, 0.78rem);
-    letter-spacing: 0.12em;
+    text-align: center;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    letter-spacing: 0.14em;
+    padding-bottom: 10px;
   }
 
+  /* Hide the inline nav links — menu button handles navigation */
   .heroNameTopRight {
-    display: flex;
-    font-size: clamp(0.62rem, 0.85vw, 0.78rem);
-    gap: clamp(0.6rem, 1.5vw, 1.2rem);
-    flex-wrap: nowrap;
+    display: none;
   }
 
-  /* Roles row — shrink and tighten */
+  /* Stacked: each word on its own line, large fill */
+  .heroNameLine {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+    text-align-last: center;
+    font-size: clamp(14rem, 32vw, 22rem);
+    line-height: 0.75;
+    transform: none;
+    white-space: normal;
+    word-break: break-word;
+    display: block;
+  }
+
+  .heroNameWord {
+    display: block;
+  }
+
+  .heroNameWord + .heroNameWord::before {
+    content: none;
+  }
+
+  /* Hide roles row — too cramped with big stacked text */
   .heroNameBottomRoles {
-    font-size: clamp(0.54rem, 0.82vw, 0.72rem);
-    margin-top: -1.2vw;
-    padding: 0 1%;
-    letter-spacing: 0.1em;
+    display: none;
   }
 
-  /* CTAs — keep absolute but closer */
+  /* Hide hero photo on tablet */
+  .heroImageBlock {
+    display: none !important;
+  }
+
+  /* CTAs stacked, full-width like mobile */
   .heroCtas {
-    bottom: -1.5rem;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: clamp(1rem, 3vh, 2rem);
+    padding-bottom: 3rem;
   }
 
   .btn {
-    padding: 16px 36px;
+    width: 100%;
+    flex: none;
+    justify-content: center;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .heroScroll {
+    bottom: 1.25rem;
   }
 }
