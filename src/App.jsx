@@ -9,6 +9,7 @@ import Experience from "./components/Experience.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 import LoadingScreen from "./components/LoadingScreen.jsx";
+import CustomCursor from "./components/ui/CustomCursor.jsx";
 
 
 const SECTION_IDS = [...NAV_LINKS];
@@ -53,6 +54,7 @@ export default function App() {
 
   return (
     <>
+      <CustomCursor />
       {isLoading && <LoadingScreen onFinished={handleLoadingFinished} />}
       <div
         className="layout"
